@@ -38,12 +38,9 @@ class SecurityConfig {
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, *Endpoints.ADMIN_GET_ENDPOINS.toTypedArray())
                 .hasAuthority(Authority.Admin.name)
+                .requestMatchers(HttpMethod.POST, *Endpoints.ADMIN_POST_ENDPOINS.toTypedArray())
+                .hasAuthority(Authority.Admin.name)
         }
-
-
-
-
-
         http.cors { cors ->
             cors.configurationSource { request ->
                 val corsConfig = CorsConfiguration()
@@ -58,12 +55,9 @@ class SecurityConfig {
                 corsConfig
             }
         }
-
         http.sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
         http.httpBasic(Customizer.withDefaults())
         http.csrf { csrf -> csrf.disable() }
-
-
         return http.build()
     }
 

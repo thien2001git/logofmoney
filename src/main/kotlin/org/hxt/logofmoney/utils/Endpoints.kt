@@ -38,7 +38,11 @@ object Endpoints {
     )
 
     val ADMIN_POST_ENDPOINS = arrayListOf(
-        "post"
+        "/type",
+        "/type/**",
+
+        "/record",
+        "/record/**",
 
     )
 }

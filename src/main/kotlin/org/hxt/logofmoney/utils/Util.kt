@@ -4,6 +4,9 @@ import org.springframework.security.core.userdetails.User
 import org.hxt.logofmoney.controller.LoginController
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.password.PasswordEncoder
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 import org.hxt.logofmoney.entity.table.User as User1
 import java.util.Date
 
@@ -21,5 +24,11 @@ object Util {
 
     fun create(u: User1) = LoginController.LoginRequest(u.name, u.password)
     fun create(u: LoginController.SignRequest) = User1(Date().time, u.username, u.password, u.authority)
+
+
+    fun convertLongToLocalDateTime(timestamp: Long): LocalDateTime {
+        val instant = Instant.ofEpochMilli(timestamp)
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+    }
 
 }

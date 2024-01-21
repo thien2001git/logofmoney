@@ -1,4 +1,4 @@
-package org.hxt.logofmoney1.repository
+package org.hxt.logofmoney.entity.repository
 
 
 import org.hxt.logofmoney.entity.table.Record
