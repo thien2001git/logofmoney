@@ -1,5 +1,7 @@
 package org.hxt.logofmoney.controller
 
+import org.hxt.logofmoney.entity.model.impl.RecordModel
+import org.hxt.logofmoney.entity.model.response.RecordResponse
 import org.hxt.logofmoney.entity.repository.RecordRepository
 import org.hxt.logofmoney.entity.repository.TypeRepository
 import org.hxt.logofmoney.entity.table.Record
@@ -19,13 +21,14 @@ class RecordController {
     lateinit var typeRepository: TypeRepository
 
     @GetMapping("/record/get-all")
-    fun getAll() = runCatching {
-        recordRepository.findAll()
-    }.mapCatching {
-        return@mapCatching it
-    }.onFailure {
-        it.printStackTrace()
+    fun getAll(): List<RecordResponse> {
+        val res = ArrayList<RecordResponse>()
+        recordRepository.findAll().forEach {
+            res.add(RecordModel(it, typeRepository).create())
+        }
+        return res
     }
+
 
     @PostMapping("/record/upsert")
     fun upsert(@RequestBody record: Record): ResponseEntity<String> {

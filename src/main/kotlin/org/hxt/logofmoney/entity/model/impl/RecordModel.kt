@@ -1,6 +1,7 @@
 package org.hxt.logofmoney.entity.model.impl
 
 import org.hxt.logofmoney.entity.model.base.IRecord
+import org.hxt.logofmoney.entity.model.response.RecordResponse
 import org.hxt.logofmoney.entity.repository.TypeRepository
 import org.hxt.logofmoney.entity.table.Record
 import org.hxt.logofmoney.entity.table.Type
@@ -17,4 +18,6 @@ class RecordModel(val record: Record, val typeRepository: TypeRepository) : IRec
     override fun getDate(): LocalDateTime = Util.convertLongToLocalDateTime(record.date)
 
     override fun getDescription(): String = record.description
+
+    fun create() = RecordResponse(record.id, getType(), record.date, record.description)
 }
